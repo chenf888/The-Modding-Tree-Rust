@@ -1,0 +1,20 @@
+[package]
+name = "the-modding-tree-rust"
+version = "0.1.0"
+edition = "2021"
+description = "Rust rewrite of The Modding Tree incremental-game template (engine core, compiled to WebAssembly)"
+license = "MIT"
+
+[lib]
+name = "tmt_engine"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# Maintained Rust port of break_eternity.js, the number library TMT uses.
+break-eternity-rs = "0.5.2"
+
+[profile.release]
+opt-level = 3
+lto = true
+panic = "abort"
+codegen-units = 1

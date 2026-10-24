@@ -1,0 +1,76 @@
+/* Rust-edition overrides on top of the original TMT stylesheets.
+   The engine emits the same class names, so only the differences between
+   the Vue version and the patch-based renderer live here. */
+
+/* The Vue version relies on #app being a 2-column flow container; the Rust
+   renderer positions the panes itself, so #app stays a plain block. */
+#app {
+	column-count: initial;
+	column-width: initial;
+}
+
+/* The engine's render root (id kept distinct from the static #app container). */
+#tmtroot {
+	min-height: 100%;
+}
+
+/* The engine renders pane content directly; keep the scroll containers
+   behaving like the original. */
+.col.left {
+	top: 0;
+	overflow-y: auto;
+	overflow-x: auto;
+}
+
+.col.right {
+	top: 0;
+	overflow-y: auto;
+	overflow-x: auto;
+}
+
+.fullWidth {
+	position: absolute;
+}
+
+/* Inputs rendered by the engine (text-input / slider / drop-down). */
+#app input[type="text"],
+#app input:not([type]) {
+	background: transparent;
+	border: none;
+	border-bottom: 2px solid var(--color);
+	color: var(--color);
+	font-size: 16px;
+	padding: 2px;
+}
+
+#app input[type="range"] {
+	width: 150px;
+	accent-color: var(--points);
+}
+
+#app select {
+	background: var(--background);
+	color: var(--color);
+	border: 2px solid var(--color);
+	border-radius: 5px;
+	padding: 3px 8px;
+	font-family: inherit;
+}
+
+#app select option {
+	background: var(--background);
+	color: var(--color);
+}
+
+/* Particle layer (glue.js-owned, outside #app). */
+.particle-layer {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	overflow: hidden;
+	z-index: 999999;
+}
+
+.particle-layer .particle {
+	pointer-events: auto;
+}
